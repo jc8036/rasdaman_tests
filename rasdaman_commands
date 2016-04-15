@@ -1,0 +1,69 @@
+export DATASET='/home/user/Desktop/rasters'
+export SECORE_ENDPOINT='http://localhost:8080/def'
+export WCS2_ENDPOINT='http://localhost:8080/rasdaman/ows/'
+export IMAGE2D="${DATASET}/1.tiff"
+rasimport -f "$IMAGE2D" \ 
+-- coll 'Singleband' \
+-- coverage -name 'Singleband' \
+rasql -q "select sdom(m) from Multiband as m" --out string | grep 'Result'
+
+gdalinfo "$IMAGE2D" | grep '^Size'
+
+wget "${WCS2_ENDPOINT}&service=WCS&version=2.0.1&request=GetCapabilities"
+
+host=localhost
+rasport=7001
+pgport=5432
+rasdbname=RASBASE
+petadbname=petascopedb
+# RASBASE login credentials
+rasuser=user
+raspassword=user
+# petascopedb login credentials
+petauser=petauser
+petapassword=petapasswd
+# rasdaman login credentials
+rasloginuser=rasadmin
+rasloginpassword=rasadmin
+
+rasimport \
+-f /home/user/Desktop/rasters/692496ss.tif \
+--coll mean_summer_airtemp \
+--coverage-name msat_cov \
+-t GreyImage:GreySet \
+--crs-uri 'http://www.opengis.net/def/crs/EPSG/0/4326' \
+--crs-order 1:0 
+
+rasimport \
+-d /media/user/Data/rasters/ \
+-s 'tif' \
+--coll thousands \
+--coverage-name one_thousand \
+--crs-uri '%SECORE_URL%/crs/EPSG/0/4326':'%SECORE_URL%/crs/OGC/0/AnsiDate' \
+--crs-order 1:0:2 \
+--csz 1 \
+--shift 0:0:135050 \
+--3D top
+
+http://localhost:8080/rasdaman/ows/?service=WCS&version=2.0.1&request=GetCapabilities
+http://localhost:8080/rasdaman/ows/wcs2?service=WCS&version=2.0.1&request=DescribeCoverage&coverageid=ppp&subset=E(0)&subset=N(0)&subset=ansi(*,*)
+http://localhost:8080/rasdaman/ows/wcs2?service=WCS&version=2.0.1&request=GetCoverage&coverageid=ppp&subset=ansi(0)&format=image/tiff
+http://localhost:8080/rasdaman/ows?query=for i in (ppp) return encode(i[ansi(1)],"png")
+http://localhost:8080/rasdaman/ows?query=for i in (one_thousand) return encode(i[Lat(50),Long(50)],"xml")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
