@@ -54,7 +54,7 @@ if __name__ == '__main__':
     # Change those below
     filePath = '/home/rasdaman/evaporation.nc'
     workspace = '/home/rasdaman/rasters'
-    key = 'tp'
+    key = 'e'
     col = 'testdata'
     name = 'testraster'
     CRS = 4326
