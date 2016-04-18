@@ -58,8 +58,8 @@ if __name__ == '__main__':
     filePath = '/home/rasdaman/evaporation.nc'
     workspace = '/home/rasdaman/rasters'
     key = 'e'
-    col = 'testdata2'
-    name = 'testraster2'
+    col = 'testdata3'
+    name = 'testraster3'
     CRS = 4326
     ncFile, lon, lat, time_list = readNetCDF(filePath)
     # and this:
