@@ -61,12 +61,15 @@ if __name__ == '__main__':
     ncFile, lon, lat, time_list = readNetCDF(filePath)
     # and this:
     time_list = time_list[:1000]
-    
+    filenames = []
     for index, timestep in enumerate(time_list):
-        timeInterval = 1
-        timeOrigin = time_list[0] if index == 0 else 0
+        
         
         fileName = writeTiff(ncFile, lon, lat, index, key, workspace)
-#    update_collection(fileName, col, name, CRS, timeInterval, timeOrigin)
+        filenames.append(filename)
+    for index, fame in enumerate(filenames):
+        timeInterval = 1
+        timeOrigin = time_list[0] if index == 0 else 0
+        update_collection(fame, col, name, CRS, timeInterval, timeOrigin)
 
 
