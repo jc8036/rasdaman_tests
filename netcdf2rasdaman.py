@@ -51,8 +51,8 @@ def update_collection(fileName, col, name, CRS, timeInterval, timeOrigin, threed
 if __name__ == '__main__':
 
     # Change those below
-    filePath = '/media/user/Data/downloads/_grib2netcdf-atls06-95e2cf679cd58ee9b4db4dd119a05a8d-0FCjvv.nc'
-    workspace = '/media/user/Data/rasters/'
+    filePath = '/home/rasdaman/_grib2netcdf-atls06-95e2cf679cd58ee9b4db4dd119a05a8d-0FCjvv.nc'
+    workspace = '/home/rasdaman/rasters'
     key = 'tp'
     col = 'testdata'
     name = 'testraster'
