@@ -15,7 +15,8 @@ def readNetCDF(filePath):
     ncFile = netCDF4.Dataset(filePath)
     lon = np.array(ncFile.variables['longitude'])
     lat = np.array(ncFile.variables['latitude'])
-    time_list = np.array(ncFile.variables['time'])    
+    time_list = np.array(ncFile.variables['time'])
+    print ncFile.variables.keys()
     return (ncFile, lon, lat, time_list)
 
 def writeTiff(ncFile, lon, lat, timestep_index, key, workspace):
