@@ -58,12 +58,12 @@ if __name__ == '__main__':
     filePath = '/home/rasdaman/evaporation.nc'
     workspace = '/home/rasdaman/rasters'
     key = 'e'
-    col = 'testdata3'
-    name = 'testraster3'
+    col = 'evap_coll'
+    name = 'evap'
     CRS = 4326
     ncFile, lon, lat, time_list = readNetCDF(filePath)
     # and this:
-    time_list = time_list[:1000]
+    #time_list = time_list[:1000]
     filenames = []
     for index, timestep in enumerate(time_list):
         fileName = writeTiff(ncFile, lon, lat, index, key, workspace)
