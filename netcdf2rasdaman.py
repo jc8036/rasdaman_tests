@@ -39,8 +39,11 @@ def writeTiff(ncFile, lon, lat, timestep_index, key, workspace):
     return fileName
     
    
-def update_collection(fileName, col, name, CRS, timeInterval, timeOrigin, threed='top'):
-    p = subprocess.Popen("rasimport -f %s --coll %s --coverage-name %s --crs-uri '%%SECORE_URL%%/crs/EPSG/0/%s':'%%SECORE_URL%%/crs/OGC/0/AnsiDate' --crs-order 1:0:2 --3D %s --csz %s --shift 0:0:%s" % (str(fileName), str(col), str(name), str(CRS), str(threed), str(timeInterval), str(timeOrigin)), stderr=subprocess.STDOUT, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+def update_collection(index, fileName, col, name, CRS, timeInterval, timeOrigin, threed='top'):
+    if index == 0:
+        p = subprocess.Popen("rasimport -f %s --coll %s --coverage-name %s --crs-uri '%%SECORE_URL%%/crs/EPSG/0/%s':'%%SECORE_URL%%/crs/OGC/0/AnsiDate' --crs-order 1:0:2 --3D %s --csz %s --shift 0:0:%s" % (str(fileName), str(col), str(name), str(CRS), str(threed), str(timeInterval), str(timeOrigin)), stderr=subprocess.STDOUT, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    else:
+        p = subprocess.Popen("rasimport -f %s --coll %s --coverage-name %s --crs-uri '%%SECORE_URL%%/crs/EPSG/0/%s':'%%SECORE_URL%%/crs/OGC/0/AnsiDate' --crs-order 1:0:2 --3D %s --csz %s" % (str(fileName), str(col), str(name), str(CRS), str(threed), str(timeInterval)), stderr=subprocess.STDOUT, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     p.wait()
     output = p.stdout.read()
     if len(output) == 0:
@@ -68,6 +71,6 @@ if __name__ == '__main__':
     for index, fame in enumerate(filenames):
         timeInterval = 1
         timeOrigin = time_list[0] if index == 0 else 0
-        update_collection(fame, col, name, CRS, timeInterval, timeOrigin)
+        update_collection(index, fame, col, name, CRS, timeInterval, timeOrigin)
 
 
