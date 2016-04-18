@@ -63,10 +63,8 @@ if __name__ == '__main__':
     time_list = time_list[:1000]
     filenames = []
     for index, timestep in enumerate(time_list):
-        
-        
         fileName = writeTiff(ncFile, lon, lat, index, key, workspace)
-        filenames.append(filename)
+        filenames.append(fileName)
     for index, fame in enumerate(filenames):
         timeInterval = 1
         timeOrigin = time_list[0] if index == 0 else 0
