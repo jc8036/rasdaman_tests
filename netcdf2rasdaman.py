@@ -40,7 +40,7 @@ def writeTiff(ncFile, lon, lat, timestep_index, key, workspace):
     
    
 def update_collection(fileName, col, name, CRS, timeInterval, timeOrigin, threed='top'):
-    p = subprocess.Popen("rasimport -f %s --coll %s --coverage-name %s --crs-uri '%%SECORE_URL%%/crs/EPSG/0/%s':'%%SECORE_URL%%/crs/OGC/0/AnsiDate' --crs-order 1:0:2 --3D %s --csz %s --shift 0:0:%s" % (str(fileName), str(col), str(name), str(CRS), str(threed), str(timeInterval), str(timeOrigin)), stderr=subprocess.STDOUT, shell=True, stdout=subprocess.PIPE)
+    p = subprocess.Popen("rasimport -f %s --coll %s --coverage-name %s --crs-uri '%%SECORE_URL%%/crs/EPSG/0/%s':'%%SECORE_URL%%/crs/OGC/0/AnsiDate' --crs-order 1:0:2 --3D %s --csz %s --shift 0:0:%s" % (str(fileName), str(col), str(name), str(CRS), str(threed), str(timeInterval), str(timeOrigin)), stderr=subprocess.STDOUT, shell=True, stdin=subprocess.PIPE stdout=subprocess.PIPE)
     p.wait()
     output = p.stdout.read()
     if len(output) == 0:
@@ -55,8 +55,8 @@ if __name__ == '__main__':
     filePath = '/home/rasdaman/evaporation.nc'
     workspace = '/home/rasdaman/rasters'
     key = 'e'
-    col = 'testdata'
-    name = 'testraster'
+    col = 'testdata2'
+    name = 'testraster2'
     CRS = 4326
     ncFile, lon, lat, time_list = readNetCDF(filePath)
     # and this:
