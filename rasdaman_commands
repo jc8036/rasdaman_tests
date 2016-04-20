@@ -11,17 +11,29 @@ http://62.113.208.100/rasdaman/ows/wcs2?service=WCS&version=2.0.1&request=GetCov
 WCS Get request returning timeseries for location 0 degree North:0 degree East
 http://62.113.208.100/rasdaman/ows/wcs2?service=WCS&version=2.0.0&request=GetCoverage&coverageid=btest&subset=Long(0)&subset=Lat(0)
 
+WCS request returning values for two dates
+http://62.113.208.100/rasdaman/ows/wcs2?service=WCS&version=2.0.0&request=GetCoverage&coverageid=btest&subset=Long(0)&subset=Lat(0)&subset=ansi("1972-01-01","1972-01-02")
+
 WCPS request returning coverage "btest" at timestep 135050 encoded to .png.
 http://62.113.208.100/rasdaman/ows?query=for i in(btest) return encode(i[ansi(135050)],"png")
 
 WCPS request returning string of values for location 50 degree North:50 degree East encoded to .csv.
 http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode(i[Lat(50),Long(50)],"csv")
 
+WCPS request with data given in yyyy-mm-dd format returning a raster for the 1st January 1972
+http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode(i[ansi("1972-01-01")],"png")
+
 WCPS request returning single value for location 50 degree North:50 degree East en time step 135050 encoded to .csv.
 http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode(i[Lat(50),Long(50),ansi(135050)],"csv")
 
 WCPS request returning string of values for latitude 50 degree Northe and time step 135050 (profile) encoded to .csv
 http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode(i[Lat(50),ansi(135050)],"csv")
+
+WCPS request returning a raster coverage in range between 50N and 60N and 50E and 60E for time step 135050
+http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode(i[Lat(50:60),Long(50:60),ansi(135050)],"tiff")
+
+WCPS request returning an average raster value for the time step 135050
+http://62.113.208.100/rasdaman/ows?query=for i in (btest) return encode((float) avg(i[ansi(135050)]),"csv")
 #######################################################
 
 
